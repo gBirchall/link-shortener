@@ -1,10 +1,12 @@
 <?php
 require 'autoload.php';
 
-class DatabaseController {
+class DatabaseController
+{
     private static $db;
 
-    public static function connect(): mysqli|bool {
+    public static function connect(): mysqli|bool
+    {
         try {
 
             self::$db = new mysqli(
@@ -21,16 +23,18 @@ class DatabaseController {
     }
 
 
-    public static function disconnect(): void {
+    public static function disconnect(): void
+    {
         self::$db->close();
     }
 
 
-    public  function insertUrl(string $url, string $shortUrl): bool {
-        if (!$db = self::connect()) {
+    public  static function insertUrl(string $url, string $shortUrl): bool
+    {
+        if (!self::connect()) {
             return false;
         }
-        $stmt = $db->prepare("INSERT INTO links (url, short_url, created) VALUES (?, ?, NOW())");
+        $stmt = self::$db->prepare("INSERT INTO links (url, short_url, created) VALUES (?, ?, NOW())");
         $stmt->bind_param("ss", $url, $shortUrl);
         $result = $stmt->execute();
         $stmt->close();
@@ -40,7 +44,8 @@ class DatabaseController {
     }
 
 
-    public static function checkUrl(string $url): string|false {
+    public static function checkUrl(string $url): string|false
+    {
         if (!$db = self::connect()) {
             return false;
         }

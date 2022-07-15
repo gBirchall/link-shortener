@@ -20,8 +20,7 @@ class LinkController
         //generate short url - 5 random characters
         $shortUrl = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 5);
 
-        $db = new DatabaseController();
-        $insert = $db->insertUrl($url, $shortUrl);
+        $insert =  DatabaseController::insertUrl($url, $shortUrl);
 
         if (!$insert) {
             http_response_code(400);

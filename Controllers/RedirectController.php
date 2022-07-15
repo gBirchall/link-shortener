@@ -6,8 +6,7 @@ class RedirectController
 {
     public static function redirect(string $request): void
     {
-        $db = new DatabaseController();
-        $result = $db->checkUrl($request);
+        $result = DatabaseController::checkUrl($request);
         if ($result) {
             header('Location: http://' . $result);
         } else {
