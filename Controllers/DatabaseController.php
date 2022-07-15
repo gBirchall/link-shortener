@@ -5,7 +5,7 @@ class DatabaseController
 {
     private static $db;
 
-    public static function connect(): mysqli|bool
+    public static function connect(): bool
     {
         try {
 
@@ -15,11 +15,10 @@ class DatabaseController
                 $_ENV['DB_PASS'],
                 $_ENV['DB_NAME']
             );
+            return true;
         } catch (Exception $e) {
             return false;
         }
-
-        return self::$db;
     }
 
 
@@ -54,7 +53,6 @@ class DatabaseController
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
-        // $url = $result->fetch_assoc()['url'];
         self::disconnect();
 
         if ($result->num_rows > 0) {
