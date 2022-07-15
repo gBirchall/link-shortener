@@ -9,7 +9,7 @@
 <body>
     <!-- onkeydown="return event.key != 'Enter';" -->
     <form action="/generate.php" method="POST" onsubmit="event.preventDefault(); request(this);">
-        <input id="url" style="min-width:250px;" type="text" name="url" placeholder="Enter the link you'd like shortening..." required>
+        <input id="url" style="min-width:250px;text-transform:lowercase;" type="text" name="url" placeholder="Enter the link you'd like shortening..." required>
         <input type="hidden" name="_token" value="<?= $_SESSION['_token'] ?>">
         <button>submit</button>
     </form>
