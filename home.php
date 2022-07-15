@@ -7,24 +7,27 @@
 </head>
 
 <body>
-    <form action="/generate.php" method="POST" onkeydown="return event.key != 'Enter';">
+    <!-- onkeydown="return event.key != 'Enter';" -->
+    <form action="/generate.php" method="POST" onsubmit="event.preventDefault(); request(this);">
         <input id="url" style="min-width:250px;" type="text" name="url" placeholder="Enter the link you'd like shortening..." required>
         <input type="hidden" name="_token" value="<?= $_SESSION['_token'] ?>">
-        <button type="button" onclick="request(this)">submit</button>
+        <button>submit</button>
     </form>
     <p id="result"></p>
 
     <script>
-        async function request(e) {
-            const resultText = document.getElementById('result');
-            e.disabled = true;
-            const form = e.closest('form');
-            const formData = new FormData(form);
+        async function request(form) {
 
+            form.querySelector('button').disabled = true;
+
+            const resultText = document.getElementById('result');
+
+            const formData = new FormData(form);
             const result = await fetch(form.action, {
                 method: 'POST',
                 body: formData
-            })
+            });
+
             const data = await result;
             const body = await data.text();
 
@@ -34,7 +37,8 @@
                 resultText.innerHTML = 'Sorry, something went wrong: ' + body;
             }
 
-            e.disabled = false;
+            form.querySelector('button').disabled = false;
+
         }
     </script>
 </body>
