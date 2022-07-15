@@ -46,10 +46,10 @@ class DatabaseController
 
     public static function checkUrl(string $url): string|false
     {
-        if (!$db = self::connect()) {
+        if (!self::connect()) {
             return false;
         }
-        $stmt = $db->prepare("SELECT * FROM links WHERE short_url = ?");
+        $stmt = self::$db->prepare("SELECT * FROM links WHERE short_url = ?");
         $stmt->bind_param("s", $url);
         $stmt->execute();
         $result = $stmt->get_result();
