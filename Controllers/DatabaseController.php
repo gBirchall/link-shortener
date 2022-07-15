@@ -4,7 +4,7 @@ require 'autoload.php';
 class DatabaseController {
     private static $db;
 
-    public static function connect(): mysqli|string {
+    public static function connect(): mysqli|bool {
         try {
 
             self::$db = new mysqli(
