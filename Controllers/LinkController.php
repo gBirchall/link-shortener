@@ -5,6 +5,7 @@ class LinkController
 {
     public static function generateLink(string $url): string
     {
+        $url = strtolower($url);
         //remove the protocol from the url if it exists
         if (preg_match('/^http(s)?:\/\//', $url)) {
             $url = preg_replace('/^http(s)?:\/\//', '', $url);
